@@ -1,0 +1,21 @@
+{% module Header() %}
+<link href="{{ static_url('highlight/default.min.css') }}" rel="stylesheet">
+<link href="{{ static_url('css/page/index.css') }}" rel="stylesheet">
+<h3 id="page_title">{$page.page_title}</h3>
+<!-- 这里开始是内容 -->
+<div id="page_md_content" ><textarea style="display:none;">
+{$page.page_md_content}</textarea></div>
+
+<div id="page_html_content" style="display:none;">{$page.page_html_content}</div>
+
+{% module Footer() %}
+<script src="{{ static_url('highlight/highlight.min.js') }}"></script>
+<script src="{{ static_url('editor.md/lib/marked.min.js') }}"></script>
+<script src="{{ static_url('editor.md/lib/prettify.min.js') }}"></script>
+<script src="{{ static_url('editor.md/lib/flowchart.min.js') }}"></script>
+<script src="{{ static_url('editor.md/lib/raphael.min.js') }}"></script>
+<script src="{{ static_url('editor.md/lib/underscore.min.js') }}"></script>
+<script src="{{ static_url('editor.md/lib/sequence-diagram.min.js') }}"></script>
+<script src="{{ static_url('editor.md/lib/jquery.flowchart.min.js') }}"></script>
+<script src="{{ static_url('editor.md/editormd.min.js') }}"></script>
+<script src="{{ static_url('js/page/index.js') }}"></script>

@@ -1,0 +1,19 @@
+{% module Header() %}
+<link rel="stylesheet" href="{{ static_url('css/login.css') }}" />
+
+<div class="container">
+
+    <form class="form-signin" method="post" action="/user/setting">
+        <h3 class="form-signin-heading">修改个人信息</h3>
+        <input type="text" class="input-block-level" value="{{ current_user['username'] }}" disabled >
+        <input type="password" class="input-block-level" name="new_password"  placeholder="新密码">
+        <input type="password" class="input-block-level" name="password"  placeholder="原密码">
+        <input type="hidden" name="form" value="form">
+        <button class="btn  btn-primary" type="submit">提交</button>
+        <a href="javascript:history.go(-1)" class="btn">返回</a>
+    </form>
+    <div>{{ data['msg'] }}</div>
+</div>
+
+{% module Footer() %}
+

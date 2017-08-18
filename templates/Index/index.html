@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ShowDoc</title>
+    <link rel="stylesheet" href="{{ static_url('bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('css/jquery.fullPage.css') }}">
+    <style>
+.section { text-align: center; font: 30px "Microsoft Yahei"; color: #fff;}
+.header{
+ padding-right: 100px;
+ padding-top: 30px;
+ font-size: 18px; 
+ position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    margin-bottom: 0;
+}
+.header a {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+<div class="row header  ">
+    <div class="right pull-right">
+        <ul class="inline pull-right">
+            {% if current_user  %}
+             <li><a href="/item/index">我的项目</a></li>
+            {% else %}
+            <li ><a href="/user/login">登录/注册</a></li>
+            {% end %}
+        </ul>
+    </div>
+</div>
+
+<div id="dowebok">
+    <div class="section">
+        <h1>ShowDoc</h1>
+        <br>
+        <p>一个非常适合IT团队的在线API文档、技术文档工具</p>
+        <br>
+        <p>
+            <a class="btn   btn-large " href="#" target="_blank">示例</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn  btn-large" href="#" target="_blank" >帮助</i></a>
+        </p>
+    </div>
+    <div class="section">
+        <h1>API文档</h1>
+        <br>
+        <p>APP、web前端与服务器常用API来进行交互
+用ShowDoc可以非常方便快速地编写出美观的API文档</p>
+        <br>
+    </div>
+    <div class="section">
+        <h1>数据字典</h1>
+        <br>
+        <p>好的数据字典可以很方便地向别人描述你的数据库结构
+用ShowDoc可以编辑出美观的数字字典</p>
+        <br>
+    </div>
+    <div class="section">
+        <h1>说明文档</h1>
+        <br>
+        <p>你完全可以使用 ShowDoc来编写一些工具的说明书
+也可以编写一些技术规范说明文档以供团队查阅</p>
+        <br>
+    </div>
+
+    <div class="section">
+        <h1>团队协作</h1>
+        <br>
+        <p>团队权限管理机制让团队良好地协同编写文档</p>
+        <br>
+    </div>
+
+    <div class="section">
+        <h1>免费开源</h1>
+        <br>
+        <p>ShowDoc提供免费开源的版本
+你可以选择将ShowDoc部署到你的服务器</p>
+        <br>
+    </div>
+
+    <div class="section">
+        <h1>在线托管</h1>
+        <br>
+        <p>www.showdoc.cc 提供安全稳定的在线文档托管服务
+你可以放心地选择托管你的文档数据在云端</p>
+        <br>
+    </div>
+    <div class="section">
+        <h1></h1>
+        <br>
+        <p>超过2000+互联网团队正在使用ShowDoc</p>
+        <br>
+        <p>
+            <a class="btn btn-large" href="#">立即体验</a>
+        </p>
+    </div>
+</div>
+{% module Footer() %}
+<script src="{{ static_url('js/jquery.fullPage.min.js') }}"></script>
+<script>
+$(function(){
+    $('#dowebok').fullpage({
+        sectionsColor : ['#1bbc9b', '#4BBFC3', '#2C606A', '#f90','#7CBD9D','#A77DC2','#85CE92','#1bbc9b'],
+        navigation:true,
+    });
+
+    $(window).resize(function(){
+        autoScrolling();
+    });
+
+    function autoScrolling(){
+        var $ww = $(window).width();
+        if($ww < 1024){
+            $.fn.fullpage.setAutoScrolling(false);
+        } else {
+            $.fn.fullpage.setAutoScrolling(true);
+        }
+    }
+
+    autoScrolling();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% module Header() %}
+<link rel="stylesheet" href="{{ static_url('css/login.css') }}" />
+<style type="text/css">
+.choose_type{
+    margin-bottom: 20px;
+    text-align: center;
+}
+#choose_item{
+    width: 100%;
+}
+</style>
+<div class="container">
+
+    <form class="form-signin" method="post" action="/item/edit/{{ item['item_id'] }}">
+        <input type="hidden" name="form" value="form" >
+        <input type="text" class="input-block-level" id="item_name" name="item_name" placeholder="项目名" autocomplete="off" value="{{ item['item_name'] }}" required >
+        <input type="text" class="input-block-level" id="item_description" name="item_description" placeholder="项目描述" autocomplete="off" value="{{ item['item_description'] }}">
+        <input type="text" onfocus="this.type='password'" id="password" class="input-block-level" name="password" placeholder="访问密码(可选，私有项目必需)" title="访问密码(可选，私有项目必需)" autocomplete="off">
+        <input class="btn  btn-primary" type="submit" value="提交">
+        <a href="javascript:history.go(-1)" class="btn">返回</a>
+    </form>
+
+</div> <!-- /container -->
+
+{% module Footer() %}

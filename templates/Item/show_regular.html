@@ -1,0 +1,165 @@
+{% module Header() %}
+<link rel="stylesheet" href="{{ static_url('editor_md/css/editormd.preview.css') }}" />
+<link rel="stylesheet" href="{{ static_url('css/item/show.css') }}" />
+
+
+<div class="doc-head row" >
+  <div class="left "><h2>{{ item['item_name'] }}</h2></div>
+  <div class="right">
+    <ul class="inline pull-right">
+      {% if current_user %}
+      <li>
+        <div class="btn-group ">
+          <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#">项目<span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#" id="share">分享</a></li>
+            <li><a href="{:U('Home/Item/word',array('item_id'=>$item['item_id']))}">导出</a></li>
+
+            <li><a href="/item/edit/{{ item['item_id'] }}">修改信息</a></li>
+            <li><a href="{:U('Home/Member/edit',array('item_id'=>$item['item_id']))}">成员管理</a></li>
+            <li><a href="{:U('Home/Attorn/index',array('item_id'=>$item['item_id']))}">转让</a></li>
+            <li><a href="/item/deli/{{ item['item_id'] }}">删除</a></li>
+
+            <li><a href="{:U('Home/Item/index')}">返回</a></li>
+          </ul>
+        </div>
+      </li>
+      {% else %}
+      <li ><a href="/user/login">登录/注册</a></li>
+      <li ><a href="http://showdoc.cc/help" target="_blank">关于ShowDoc</a></li>
+      {% end %}
+
+    </ul>
+  </div>
+</div>
+</div>
+
+<div class="doc-body row">
+  <!-- 左侧栏菜单 -->
+  <div class="doc-left span3 bs-docs-sidebar pull-left">
+    <form class="form-search text-center" action="{:U('Home/item/show',array('item_id'=>$item['item_id']))}" method="post">
+      <div class="input-append search-input-append">
+        <i class="icon-blank"></i>
+        <input type="text" name="keyword" class="search-query search-query-input" value="">
+        <input type="hidden" name="item_id" value="{{ item['item_id'] }}">
+        <button type="submit" class="btn"><i class="icon-search"></i></button>
+      </div>
+    </form>
+
+    <ul class="nav nav-list bs-docs-sidenav">
+
+      {% for page in pages %}
+      <li class="{% if page['page_id'] == show_page['page_id'] %}active{% end %}">
+        <a href="/item/show/{{ item['item_id'] }}?page_id={{ page['page_id'] }}" data-page-id="{{ page['page_id'] }}" >
+          <i class="icon-blank"></i>{{ page['page_title'] }}</a>
+      </li>
+      {% end %}
+
+      {% for cat in cats %}
+      <li><a href="#"><i class="icon-chevron-right"></i>{{ cat['cat_name'] }}</a>
+        <!--<ul class="child-ul nav-list hide">-->
+          <!--{ for c in cat.cats }-->
+          <!--<li><a href="" >cat_name</a></li>-->
+          <!--{ end }-->
+          <!--{ for p in cat.pages }-->
+          <!--<li><a href=""  >page_title</a></li>-->
+          <!--{ end }-->
+        <!--</ul>-->
+      </li>
+      {% end %}
+    </ul>
+    <!-- 新建栏 -->
+    <div class="doc-left-newbar">
+      {% if item %}
+      <div><a href="/page/create/{{ item['item_id'] }}" id="new-like"><i class="icon-plus"></i>&nbsp;新建页面</a></div>
+      <div><a href="/cat/edit/{{ item['item_id'] }}" id="dir-like" ><i class="icon-folder-open"></i>新建目录</a></div>
+      {% end %}
+    </div>
+
+    <input type="hidden" id="item_id" value="{$item.item_id}">
+    <input type="hidden" id="item_domain" value="{$item.item_domain}">
+    <input type="hidden" id="current_page_id" value="{$current_page_id}">
+    <input type="hidden" id="base_url" value="__APP__">
+
+
+  </div>
+  <div class="doc-right  span12 ">
+    <!-- 编辑栏 -->
+    <div class='page-edit-link pull-right hide'>
+      <ul class="inline">
+        <if condition="$ItemPermn">
+          <li><a href="" id="share-page">分享</a></li>
+          <li><a href="" id="copy-link">复制</a></li>
+          <li><a href="" id="edit-link">编辑</a></li>
+          <li><a href="" title="{$Think.Lang.delete_interface}" onclick="return confirm('{$Think.Lang.comfirm_delete}');return false;" id="delete-link">删除</a></li>
+          <else />
+          <li></li>
+          <li></li>
+        </if>
+      </ul>
+    </div>
+    <!-- 页面内容 -->
+    <h2>{{ show_page['page_title'] }}</h2><hr/>
+    <div id="editor_md" style="width:90%">
+      <textarea id="page_content" style="display:none;" tabindex="10" >{{ show_page['page_content'] }}</textarea>
+    </div>
+
+  </div>
+
+  {% module Footer() %}
+  <!-- 分享项目框 -->
+  <div class="modal hide fade" id="share-modal">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>{$Think.Lang.share}</h3>
+    </div>
+    <div class="modal-body">
+      <div class="modal-body" style="text-align: center;">
+        <p>{$Think.Lang.item_address}：<code id="share-item-link">{$share_url}</code>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="copy-item-link">复制链接</a>
+        </p>
+        <p style="border-bottom: 1px solid #eee;"><img  alt="二维码" style="width:114px;height:114px;" src="?s=home/common/qrcode&size=3&url={$share_url}"> </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 分享页面框 -->
+  <div class="modal hide fade" id="share-page-modal">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>{$Think.Lang.share_page}</h3>
+    </div>
+    <div class="modal-body" style="text-align: center;">
+      <p>项目页面地址：<code id="share-page-link"></code>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="copy-page-link">复制链接</a>
+      </p>
+      <p style="border-bottom: 1px solid #eee;"><img  alt="二维码" id="qr-page-link" style="width:114px;height:114px;" src="?s=home/common/qrcode&size=3&url="> </p>
+
+      <p >单页面地址：<code id="share-single-link"></code>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="copy-single-link">复制链接</a>
+      </p>
+      <p style="border-bottom: 1px solid #eee;"><img  alt="二维码" id="qr-single-link" style="width:114px;height:114px;" src="?s=home/common/qrcode&size=3&url="> </p>
+      <p><a href="http://www.showdoc.cc/page/63882" target="_blank">项目页面地址和单页面地址有什么区别？</a></p><p>
+    </p>
+    </div>
+  </div>
+</div>
+<script src="{{ static_url('js/jquery.bootstrap-growl.min.js') }}"></script>
+<script src="{{ static_url('js/jquery.goup.min.js') }}"></script>
+<script src="{{ static_url('js/jquery.hotkeys.js') }}"></script>
+<script src="{{ static_url('jquery.zclip/jquery.zclip.js') }}"></script>
+
+<!--<script src="{{ static_url('js/item/show.js') }}"></script>-->
+<script src="{{ static_url('editor_md/lib/marked.min.js') }}"></script>
+<script src="{{ static_url('editor_md/lib/prettify.min.js') }}"></script>
+<script src="{{ static_url('editor_md/lib/raphael.min.js') }}"></script>
+<script src="{{ static_url('editor_md/lib/underscore.min.js') }}"></script>
+<script src="{{ static_url('editor_md/lib/sequence-diagram.min.js') }}"></script>
+<script src="{{ static_url('editor_md/lib/flowchart.min.js') }}"></script>
+<script src="{{ static_url('editor_md/lib/jquery.flowchart.min.js') }}"></script>
+
+<script src="{{ static_url('editor_md/editormd.js') }}"></script>
+<script type="text/javascript">
+    $(function() {
+        editor_md_View = editormd.markdownToHTML("editor_md");
+    });
+</script>

@@ -1,0 +1,102 @@
+{% module Header() %}
+<link rel="stylesheet" href="{{ static_url('editor_md/css/editormd.css') }}" />
+<link rel="stylesheet" href="{{ static_url('css/page/edit.css') }}" />
+<div id="layout">
+    <!-- 顶部条 -->
+    <header class="row">
+        <div class="head-left  pull-left">
+            <ul class="inline">
+                <li>
+                    <input type="text" name="page_title" id="page_title" value="{{ page['page_title'] }}" placeholder="页面标题" tabindex="1">
+                </li>
+                <li>
+                    <select name="cat_id" id="cat_id" tabindex="2">
+                        <option value="0">无</option>
+                        {% for cat in level1_cat %}
+                        <option value="{{ cat['cat_id'] }}">{{ cat['cat_name'] }}</option>
+                        {% end %}
+                    </select>
+                </li>
+                <li id="li_parent_cat">
+                    <select name="parent_cat_id" id="parent_cat_id" tabindex="3">
+                        <option value="0">无</option>
+                        {% for cat in level2_cat %}
+                        <option value="{{ cat['cat_id'] }}">{{ cat['cat_name'] }}</option>
+                        {% end %}
+                    </select>
+                </li>
+                <li>
+                    <input type="text" name="s_number" id="s_number" placeholder="顺序数字" tabindex="4" >
+                </li>
+                <li>
+                    <!-- 首次添加没有历史版本，不显示 -->
+                    <if condition="$page.page_id gt 0">
+                        <a href="?s=home/page/history&page_id={$page.page_id}">历史版本</a>
+                        <else />
+                    </if>
+                </li>
+            </ul>
+        </div>
+        <div class="head-right pull-right">
+            <!-- <a href="#" class="btn btn-primary " id="save">{$Think.Lang.save}</a> -->
+            <div class="btn-group" id="save-btn-group">
+                <button class="btn btn-primary" id="save">保存</button>
+                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                <ul class="dropdown-menu" >
+                    <li><a href="#" id="add-page-comments">保存前，添加注释</a></li>
+                    <li><a href="#" id="save-to-templ">保存为模板</a></li>
+                </ul>
+            </div>
+
+            <a href="javascript:history.go(-1)" class="btn cancel">取消</a>
+        </div>
+    </header>
+    <br>
+    <!-- 插入模板的按钮组 -->
+    <div class="btns">
+        <button id="api-doc" tabindex="5" >插入API接口模板</button>
+        <button id="database-doc" tabindex="6" >插入数据字典模板</button>
+        <button id="more-templ" tabindex="7" >更多模板</button>
+        <!--         <button id="jsons" tabindex="8" style="margin-left: 100px;">{$Think.Lang.json_to_table}</button> -->
+        <div class="btn-group" style="margin-left: 100px;">
+            <a class="btn dropdown-toggle" id="json-tools-btn" data-toggle="dropdown" tabindex="8" href="#">
+                JSON工具
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a id="jsons" >JSON转参数表格</a></li>
+                <li><a id="beautify-json" >JSON格式化</a></li>
+            </ul>
+        </div>
+        <a href="http://runapi.showdoc.cc/" target="_blank" class="btn" tabindex="9" id="runapi">在线测试API</a>
+    </div>
+    <div id="editor_md">
+        <textarea id="page_content" style="display:none;" tabindex="10" >{{ page['page_content'] }}</textarea>
+    </div>
+    <input type="hidden" id="item_id" value="{{ page['item_id'] }}">
+    <input type="hidden" id="page_id" value="{{ page['page_id'] }}">
+    <input type="hidden" id="page_comments" value="{{ page['page_comments'] }}">
+    <input type="hidden" id="default_second_cat_id" value="-1">
+    <input type="hidden" id="default_child_cat_id" value="-2">
+    {% if new_page %}
+    <input type="hidden" id="new_page" value="new_page">
+    {% end %}
+</div>
+
+{% module Footer() %}
+<script src="{{ static_url('js/jquery.bootstrap-growl.min.js') }}"></script>
+<script src="{{ static_url('js/jquery.hotkeys.js') }}"></script>
+<script src="{{ static_url('editor_md/editormd.min.js') }}"></script>
+<script src="{{ static_url('js/page/edit.js') }}"></script>
+<script type="text/javascript">
+    var md_Editor;
+
+    $(function() {
+        md_Editor = editormd({
+            id      : "editor_md",
+            width   : "90%",
+            height  : 640,
+            path    : "{{ static_url('editor_md/lib/') }}"
+        });
+    });
+</script>

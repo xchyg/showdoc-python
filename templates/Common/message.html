@@ -1,0 +1,36 @@
+{% module Header() %}
+<style type="text/css">
+.message {
+  width: 600px;
+  min-height: 80px;
+  padding: 20px 20px 10px 20px;
+  margin: 50px auto 0 auto;
+  border-width: 5px;
+  overflow: hidden;
+}
+.message .content {
+  overflow: hidden;
+}
+.message h4 {
+  margin: 10px 0;
+  line-height: 30px;
+}
+
+</style>
+<div class="message alert">
+	<div class="content">
+		<h4>{{ msg }}</h4>
+		{% if redirect %}
+		<p><a href="{{ redirect }}">{{ redirect_message }}</a></p>
+		<script type="text/javascript">
+			setTimeout(function () {
+				location.href = "{{ redirect }}";
+			}, 3000);
+		</script>
+		{% else %}
+		<p>[<a href="javascript:history.go(-1);">点击返回</a>] &nbsp; [<a href="/">主页</a>]</p>
+		{% end %}
+	</div>
+</div>
+
+{% module Footer() %}

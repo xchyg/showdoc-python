@@ -1,0 +1,83 @@
+{% module Header() %}
+<link rel="stylesheet" href="{{ static_url('editor_md/css/editormd.preview.css') }}" />
+<link href="{{ static_url('css/item/show_single_page.css') }}" rel="stylesheet" />
+
+<div id="header">
+
+</div>
+<div class="container doc-container">
+    <div class="doc-title-box">
+        <h3 id="doc-title">{{ item['item_name'] }}</h3>
+        <ul class="tool-bar inline pull-right">
+
+            {% if current_user %}
+            <li><a href="/page/edit/{{ page['page_id'] }}">编辑</a></li>
+            <li>
+                <div class="btn-group ">
+                    <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        项目
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- dropdown menu links -->
+                        <li><a href="/item/word',array('item_id'=>$item['item_id']))}">导出</a></li>
+
+                        <!-- 下面四个，只有项目创建者显示。这以后再说 -->
+                        <li><a href="/item/edit/{{ page['item_id'] }}">修改信息</a></li>
+                        <li><a href="/item/member/edit',array('item_id'=>$item['item_id']))}">成员管理</a></li>
+                        <li><a href="/item/attorn/index',array('item_id'=>$item['item_id']))}">转让</a></li>
+                        <li><a href="/item/deli/{{ page['item_id'] }}">删除</a></li>
+
+                        <li><a href="/item/index" >返回</a></li>
+                    </ul>
+                </div>
+            </li>
+            {% else %}
+            <li><a href="#" id="share">分享</a></li>
+            {% end %}
+
+        </ul>
+    </div>
+    <div id="doc-body" >
+        <div id="editor_md"><textarea id="page_content" style="display:none;" tabindex="10" >{{ page['page_content'] }}</textarea></div>
+    </div>
+
+</div>
+<div id="footer">
+    {% if not current_user %}
+    <div id="copyright-text">本页面使用<a href="http://www.showdoc.cc/">showdoc</a>编写</div>
+    {% end %}
+</div>
+
+<!-- 分享项目框 -->
+<!--<div class="modal hide fade" id="share-modal">-->
+<!--<div class="modal-header">-->
+<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<!--<h3>{$Think.Lang.share}</h3>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--<div class="modal-body" style="text-align: center;">-->
+<!--<p>{$Think.Lang.item_address}：<code id="share-item-link">{$share_url}</code>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="copy-item-link">复制链接</a>-->
+<!--</p>-->
+<!--<p style="border-bottom: 1px solid #eee;"><img  alt="二维码" style="width:114px;height:114px;" src="?s=home/common/qrcode&size=3&url={$share_url}"> </p>-->
+<!--</div>-->
+
+<!--</div>-->
+<!--</div>-->
+{% module Footer() %}
+<script src="{{ static_url('editor_md/lib/marked.min.js') }}"></script>
+<script src="{{ static_url('editor_md/lib/prettify.min.js') }}"></script>
+
+<script src="{{ static_url('editor_md/lib/raphael.min.js') }}"></script>
+<script src="{{ static_url('editor_md/lib/underscore.min.js') }}"></script>
+<script src="{{ static_url('editor_md/lib/sequence-diagram.min.js') }}"></script>
+<script src="{{ static_url('editor_md/lib/flowchart.min.js') }}"></script>
+<script src="{{ static_url('editor_md/lib/jquery.flowchart.min.js') }}"></script>
+
+<script src="{{ static_url('editor_md/editormd.js') }}"></script>
+<!--<script src="{{ static_url('js/item/show_single_page.js') }}"></script>-->
+<script type="text/javascript">
+    $(function() {
+        editor_md_View = editormd.markdownToHTML("editor_md");
+    });
+</script>

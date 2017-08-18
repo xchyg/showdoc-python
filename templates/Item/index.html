@@ -1,0 +1,57 @@
+{% module Header() %}
+<link rel="stylesheet" href="{{ static_url('css/item/index.css') }}" />
+<div class="container-narrow">
+
+  <div class="masthead">
+    <div class="btn-group pull-right">
+      <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#">
+        更多
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="/user/setting">设置</a></li>
+        <li><a href="https://github.com/xchyg/showdoc-python" target="_blank">反馈</a></li>
+        <li><a href="/">首页</a></li>
+        <li><a href="/user/logout">退出</a></li>
+      </ul>
+    </div>
+
+    <h3 class="muted">ShowDoc</h3>
+  </div>
+
+  <hr>
+
+  <div class="container-thumbnails">
+    <ul class="thumbnails">
+      {% for item in data %}
+      <li class="span3 text-center">
+        <a class="thumbnail" href="/item/show/{{ item['item_id'] }}" title="{{ item['item_description'] }}">
+          <p class="my-item">{{ item['item_name'] }}</p>
+        </a>
+      </li>
+      {% end %}
+      <li class="span3 text-center">
+        <a class="thumbnail" href="/item/add" title="添加一个新项目">
+          <p class="my-item ">新建项目&nbsp;<i class="icon-plus"></i></p>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+
+</div> <!-- /container -->
+
+<!-- 分享项目框 -->
+<div class="modal hide fade" id="share-home-modal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>分享我的主页</h3>
+  </div>
+  <div class="modal-body">
+    <p>主页地址：<code id="share-home-link">/</code></p>
+    <p>别人访问您的主页时，将可以看到您的所有公开项目（但没有新建项目等权限）。你可以复制地址给你的好友</p>
+  </div>
+</div>
+
+
+{% module Footer() %}
