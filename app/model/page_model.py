@@ -26,7 +26,7 @@ class PageModel(object):
         :param item_id: 单页项目id
         :return:
         """
-        sel = [page.c.auto_id, page.c.item_id, page.c.cat_id, page.c.item_id, page.c.page_content]
+        sel = [page.c.auto_id, page.c.item_id, page.c.cat_id, page.c.page_content]
         s = select(sel).where(page.c.item_id == item_id)
         r = pgsql.execute(s)
         return r.fetchone()

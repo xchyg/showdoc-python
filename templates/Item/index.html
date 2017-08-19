@@ -25,8 +25,8 @@
     <ul class="thumbnails">
       {% for item in data %}
       <li class="span3 text-center">
-        <a class="thumbnail" href="/item/show/{{ item['item_id'] }}" title="{{ item['item_description'] }}">
-          <p class="my-item">{{ item['item_name'] }}</p>
+        <a class="thumbnail" href="/item/show/{{ item[0] }}" title="{{ item[2] }}">
+          <p class="my-item">{{ item[1] }}</p>
         </a>
       </li>
       {% end %}

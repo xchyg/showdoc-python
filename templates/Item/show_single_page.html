@@ -7,11 +7,11 @@
 </div>
 <div class="container doc-container">
     <div class="doc-title-box">
-        <h3 id="doc-title">{{ item['item_name'] }}</h3>
+        <h3 id="doc-title">{{ item[1] }}</h3>
         <ul class="tool-bar inline pull-right">
 
             {% if current_user %}
-            <li><a href="/page/edit/{{ page['page_id'] }}">编辑</a></li>
+            <li><a href="/page/edit/{{ page[0] }}">编辑</a></li>
             <li>
                 <div class="btn-group ">
                     <a class="btn btn-link dropdown-toggle" data-toggle="dropdown" href="#">
@@ -20,13 +20,13 @@
                     </a>
                     <ul class="dropdown-menu">
                         <!-- dropdown menu links -->
-                        <li><a href="/item/word',array('item_id'=>$item['item_id']))}">导出</a></li>
+                        <li><a href="/item/word/{{ item[0] }}">导出</a></li>
 
                         <!-- 下面四个，只有项目创建者显示。这以后再说 -->
-                        <li><a href="/item/edit/{{ page['item_id'] }}">修改信息</a></li>
-                        <li><a href="/item/member/edit',array('item_id'=>$item['item_id']))}">成员管理</a></li>
-                        <li><a href="/item/attorn/index',array('item_id'=>$item['item_id']))}">转让</a></li>
-                        <li><a href="/item/deli/{{ page['item_id'] }}">删除</a></li>
+                        <li><a href="/item/edit/{{ page[1] }}">修改信息</a></li>
+                        <li><a href="/item/member/edit/{{ item[0] }}">成员管理</a></li>
+                        <li><a href="/item/attorn/index/{{ item[0] }}">转让</a></li>
+                        <li><a href="/item/deli/{{ page[1] }}">删除</a></li>
 
                         <li><a href="/item/index" >返回</a></li>
                     </ul>
@@ -39,7 +39,7 @@
         </ul>
     </div>
     <div id="doc-body" >
-        <div id="editor_md"><textarea id="page_content" style="display:none;" tabindex="10" >{{ page['page_content'] }}</textarea></div>
+        <div id="editor_md"><textarea id="page_content" style="display:none;" tabindex="10" >{{ page[3] }}</textarea></div>
     </div>
 
 </div>
