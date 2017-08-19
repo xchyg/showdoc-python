@@ -5,7 +5,6 @@ import logging
 
 
 class PageHandler(BaseHandler):
-
     def edit(self):
         """
         编辑页面
@@ -47,7 +46,7 @@ class PageHandler(BaseHandler):
                 'page_title': page_title,
                 'page_comments': page_comments
             }
-            self.page.update(data, 'where page_id=? and item_id=?', [page_id, item_id])
+            self.page.update(data, page_id)
         return self.ret_json({})
 
     def create(self):
@@ -77,16 +76,3 @@ class PageHandler(BaseHandler):
         else:
             self.die_message('访问失败', '/', '文件不存在')
             return
-
-'''
-`page_id` INTEGER PRIMARY KEY AUTOINCREMENT,
-    `author_uid` INTEGER DEFAULT 0,
-    `author_username` TEXT,
-    `item_id` INTEGER DEFAULT 0,
-    `cat_id` INTEGER DEFAULT 0,
-    `page_title` TEXT,
-    `page_content` TEXT,
-    `page_comments` TEXT,
-    `order_id` INTEGER DEFAULT 99,
-    `addtime` INTEGER DEFAULT 0
-'''

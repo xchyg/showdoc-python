@@ -20,7 +20,8 @@ class UserModel(object):
     def login(self, username, password):
         str_ = username + password + str(time.time())
         token = hashlib.md5(bytes(str_, encoding='utf-8')).hexdigest()
-        s = users.update().where(and_(users.c.user_name == username, users.c.password == password)).values(token=token, last_login_time=now())
+        s = users.update().where(and_(users.c.user_name == username, users.c.password == password)).values(token=token,
+                                                                                                           last_login_time=now())
         r = pgsql.execute(s)
         if r.rowcount > 0:
             return self.check_login(username, token)

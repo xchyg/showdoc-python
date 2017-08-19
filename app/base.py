@@ -9,7 +9,6 @@ from .model import CatModel
 
 
 class BaseHandler(tornado.web.RequestHandler):
-
     def initialize(self):
         self.user = UserModel()
         self.item = ItemModel()

@@ -37,7 +37,8 @@ class PageModel(object):
         :param page_id: 页面id
         :return:
         """
-        sel = [page.c.auto_id, page.c.item_id, page.c.cat_id, page.c.page_title, page.c.page_content, page.c.page_html, page.c.page_comments]
+        sel = [page.c.auto_id, page.c.item_id, page.c.cat_id, page.c.page_title, page.c.page_content, page.c.page_html,
+               page.c.page_comments]
         s = select(sel).where(page.c.auto_id == page_id)
         r = pgsql.execute(s)
         return r.fetchone()
@@ -46,3 +47,8 @@ class PageModel(object):
         s = select([page]).where(page.c.item_id == item_id, cat_id == cat_id)
         r = pgsql.execute(s)
         return r.fetchall()
+
+    def update(self, data, page_id):
+        u = page.update().where(page.c.auto_id == page_id).values(**data)
+        r = pgsql.execute(u)
+        return r.rowcount
