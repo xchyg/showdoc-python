@@ -84,16 +84,14 @@
 </div>
 
 {% module Footer() %}
-<script src="{{ static_url('js/jquery.bootstrap-growl.min.js') }}"></script>
 <script src="{{ static_url('js/jquery.hotkeys.js') }}"></script>
-<script src="{{ static_url('editor_md/editormd.min.js') }}"></script>
+<script src="{{ static_url('editor_md/editormd.js') }}"></script>
 <script src="{{ static_url('js/page/edit.js') }}"></script>
 <script type="text/javascript">
     var md_Editor;
 
     $(function() {
-        md_Editor = editormd({
-            id      : "editor_md",
+        md_Editor = editormd('editor_md', {
             width   : "90%",
             height  : 640,
             path    : "{{ static_url('editor_md/lib/') }}"

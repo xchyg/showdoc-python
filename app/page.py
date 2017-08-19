@@ -32,18 +32,30 @@ class PageHandler(BaseHandler):
         page_content = self.get_argument('page_content')
         page_title = self.get_argument('page_title')
         page_comments = self.get_argument('page_comments')
+        page_html = self.get_argument('page_html')
         page_id = self.get_argument('page_id')
         item_id = self.get_argument('item_id')
         new_page = self.get_argument('new_page', False)
         if new_page:
             uid = self.current_user[0]
-            self.page.add(uid, item_id, cat_id, page_title, page_content, page_comments, order_id)
+            data = {
+                'uid': uid,
+                'item_id': item_id,
+                'cat_id': cat_id,
+                'page_title': page_title,
+                'page_content': page_content,
+                'page_html': page_html,
+                'page_comments': page_comments,
+                'order_id': order_id
+            }
+            self.page.add(data)
         else:
             data = {
                 'cat_id': cat_id,
                 'order_id': order_id,
                 'page_content': page_content,
                 'page_title': page_title,
+                'page_html': page_html,
                 'page_comments': page_comments
             }
             self.page.update(data, page_id)

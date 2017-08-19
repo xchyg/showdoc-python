@@ -4,19 +4,10 @@ from sqlalchemy.sql import select
 
 
 class PageModel(object):
-    def add(self, uid, item_id, cat_id, title, page_content='', page_comments='', order_id=99):
+    def add(self, data):
         i = page.insert()
-        data = {
-            'uid': uid,
-            'item_id': item_id,
-            'cat_id': cat_id,
-            'page_title': title,
-            'page_content': page_content,
-            'page_comments': page_comments,
-            'order_id': order_id,
-            'edit_time': now(),
-            'add_time': now()
-        }
+        data['edit_time'] = now()
+        data['add_time'] = now()
         r = pgsql.execute(i, **data)
         return r.inserted_primary_key[0]
 
@@ -26,7 +17,7 @@ class PageModel(object):
         :param item_id: 单页项目id
         :return:
         """
-        sel = [page.c.auto_id, page.c.item_id, page.c.cat_id, page.c.page_content]
+        sel = [page.c.auto_id, page.c.item_id, page.c.cat_id, page.c.page_html]
         s = select(sel).where(page.c.item_id == item_id)
         r = pgsql.execute(s)
         return r.fetchone()

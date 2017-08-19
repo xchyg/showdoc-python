@@ -39,7 +39,7 @@
         </ul>
     </div>
     <div id="doc-body" >
-        <div id="editor_md"><textarea id="page_content" style="display:none;" tabindex="10" >{{ page[3] }}</textarea></div>
+        <div id="editor_md">{% raw page[3] %}</div>
     </div>
 
 </div>
@@ -76,8 +76,3 @@
 
 <script src="{{ static_url('editor_md/editormd.js') }}"></script>
 <!--<script src="{{ static_url('js/item/show_single_page.js') }}"></script>-->
-<script type="text/javascript">
-    $(function() {
-        editor_md_View = editormd.markdownToHTML("editor_md");
-    });
-</script>
