@@ -18,7 +18,7 @@ class CatModel():
         return r.inserted_primary_key[0]
 
     def get_cats(self, item_id, pid=0):
-        s = select([category]).where(and_(category.c.item_id == item_id, category.c.parent_id == pid))
+        s = select([category.c.auto_id, category.c.cat_name]).where(and_(category.c.item_id == item_id, category.c.parent_id == pid))
         r = pgsql.execute(s)
         return r.fetchall()
 

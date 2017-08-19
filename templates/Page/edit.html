@@ -7,13 +7,13 @@
         <div class="head-left  pull-left">
             <ul class="inline">
                 <li>
-                    <input type="text" name="page_title" id="page_title" value="{{ page['page_title'] }}" placeholder="页面标题" tabindex="1">
+                    <input type="text" name="page_title" id="page_title" value="{{ page[3] }}" placeholder="页面标题" tabindex="1">
                 </li>
                 <li>
                     <select name="cat_id" id="cat_id" tabindex="2">
                         <option value="0">无</option>
                         {% for cat in level1_cat %}
-                        <option value="{{ cat['cat_id'] }}">{{ cat['cat_name'] }}</option>
+                        <option value="{{ cat[0] }}">{{ cat[1] }}</option>
                         {% end %}
                     </select>
                 </li>
@@ -21,7 +21,7 @@
                     <select name="parent_cat_id" id="parent_cat_id" tabindex="3">
                         <option value="0">无</option>
                         {% for cat in level2_cat %}
-                        <option value="{{ cat['cat_id'] }}">{{ cat['cat_name'] }}</option>
+                        <option value="{{ cat[0] }}">{{ cat[1] }}</option>
                         {% end %}
                     </select>
                 </li>
@@ -71,11 +71,11 @@
         <a href="http://runapi.showdoc.cc/" target="_blank" class="btn" tabindex="9" id="runapi">在线测试API</a>
     </div>
     <div id="editor_md">
-        <textarea id="page_content" style="display:none;" tabindex="10" >{{ page['page_content'] }}</textarea>
+        <textarea id="page_content" style="display:none;" tabindex="10" >{{ page[4] }}</textarea>
     </div>
-    <input type="hidden" id="item_id" value="{{ page['item_id'] }}">
-    <input type="hidden" id="page_id" value="{{ page['page_id'] }}">
-    <input type="hidden" id="page_comments" value="{{ page['page_comments'] }}">
+    <input type="hidden" id="item_id" value="{{ page[1] }}">
+    <input type="hidden" id="page_id" value="{{ page[0] }}">
+    <input type="hidden" id="page_comments" value="{{ page[6] }}">
     <input type="hidden" id="default_second_cat_id" value="-1">
     <input type="hidden" id="default_child_cat_id" value="-2">
     {% if new_page %}
