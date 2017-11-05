@@ -25,7 +25,8 @@ class ItemModel(object):
         logging.info(r.inserted_primary_key)
         id_ = r.inserted_primary_key[0]
         if int(type_) == consts.ITEM_TYPE_SINGLE and id_:
-            self.page.add(uid, id_, 0, name)
+            p = {'uid': uid, 'item_id': id_, 'cat_id': 0, 'page_title': name}
+            self.page.add(p)
         return id_
 
     def get_item(self, id_):
