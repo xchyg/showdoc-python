@@ -6,12 +6,15 @@ from sqlalchemy import create_engine
 from sqlalchemy import Table, MetaData, ForeignKey
 from sqlalchemy import Column, Integer, String, Text
 
+from config import postgresql
+
 
 def now():
     return int(time.time())
 
 
-engine = create_engine('postgresql+psycopg2://postgres:122896@localhost/example', encoding="utf-8")
+pSql = "postgresql+psycopg2://{userName}:{password}@{host}/{database}".format(**postgresql)
+engine = create_engine(pSql, encoding="utf-8")
 metadata = MetaData()
 
 users = Table('users', metadata,
