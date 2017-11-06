@@ -14,12 +14,12 @@
           </a>
           <ul class="dropdown-menu">
             <li><a href="#" id="share">分享</a></li>
-            <li><a href="{:U('Home/Item/word',array('item_id'=>$item['item_id']))}">导出</a></li>
+            <li><a href="">导出</a></li>
 
-            <li><a href="/item/edit/{{ item['item_id'] }}">修改信息</a></li>
-            <li><a href="{:U('Home/Member/edit',array('item_id'=>$item['item_id']))}">成员管理</a></li>
-            <li><a href="{:U('Home/Attorn/index',array('item_id'=>$item['item_id']))}">转让</a></li>
-            <li><a href="/item/deli/{{ item['item_id'] }}">删除</a></li>
+            <li><a href="">修改信息</a></li>
+            <li><a href="">成员管理</a></li>
+            <li><a href="">转让</a></li>
+            <li><a href="/item/deli/{{ item.auto_id }}">删除</a></li>
 
             <li><a href="{:U('Home/Item/index')}">返回</a></li>
           </ul>
@@ -42,7 +42,7 @@
       <div class="input-append search-input-append">
         <i class="icon-blank"></i>
         <input type="text" name="keyword" class="search-query search-query-input" value="">
-        <input type="hidden" name="item_id" value="{{ item['item_id'] }}">
+        <input type="hidden" name="item_id" value="{{ item.auto_id }}">
         <button type="submit" class="btn"><i class="icon-search"></i></button>
       </div>
     </form>
@@ -50,14 +50,14 @@
     <ul class="nav nav-list bs-docs-sidenav">
 
       {% for page in pages %}
-      <li class="{% if page['page_id'] == show_page['page_id'] %}active{% end %}">
-        <a href="/item/show/{{ item['item_id'] }}?page_id={{ page['page_id'] }}" data-page-id="{{ page['page_id'] }}" >
-          <i class="icon-blank"></i>{{ page['page_title'] }}</a>
+      <li class="{% if page.auto_id == show_page.auto_id %}active{% end %}">
+        <a href="/item/show/{{ item.auto_id }}?page_id={{ page.auto_id }}" data-page-id="{{ page.auto_id }}" >
+          <i class="icon-blank"></i>{{ page.page_title }}</a>
       </li>
       {% end %}
 
       {% for cat in cats %}
-      <li><a href="#"><i class="icon-chevron-right"></i>{{ cat['cat_name'] }}</a>
+      <li><a href="#"><i class="icon-chevron-right"></i>{{ cat.cat_name }}</a>
         <!--<ul class="child-ul nav-list hide">-->
           <!--{ for c in cat.cats }-->
           <!--<li><a href="" >cat_name</a></li>-->
@@ -72,14 +72,14 @@
     <!-- 新建栏 -->
     <div class="doc-left-newbar">
       {% if item %}
-      <div><a href="/page/create/{{ item['item_id'] }}" id="new-like"><i class="icon-plus"></i>&nbsp;新建页面</a></div>
-      <div><a href="/cat/edit/{{ item['item_id'] }}" id="dir-like" ><i class="icon-folder-open"></i>新建目录</a></div>
+      <div><a href="/page/create/{{ item.auto_id }}" id="new-like"><i class="icon-plus"></i>&nbsp;新建页面</a></div>
+      <div><a href="/cat/edit/{{ item.auto_id }}" id="dir-like" ><i class="icon-folder-open"></i>新建目录</a></div>
       {% end %}
     </div>
 
-    <input type="hidden" id="item_id" value="{$item.item_id}">
-    <input type="hidden" id="item_domain" value="{$item.item_domain}">
-    <input type="hidden" id="current_page_id" value="{$current_page_id}">
+    <input type="hidden" id="item_id" value="{{ item.auto_id }}">
+    <input type="hidden" id="item_domain" value="">
+    <input type="hidden" id="current_page_id" value="">
     <input type="hidden" id="base_url" value="__APP__">
 
 
@@ -100,9 +100,9 @@
       </ul>
     </div>
     <!-- 页面内容 -->
-    <h2>{{ show_page['page_title'] }}</h2><hr/>
+    <h2>{{ show_page.page_title }}</h2><hr/>
     <div id="editor_md" style="width:90%">
-      <textarea id="page_content" style="display:none;" tabindex="10" >{{ show_page['page_content'] }}</textarea>
+      <textarea id="page_content" style="display:none;" tabindex="10" >{{ show_page.page_content }}</textarea>
     </div>
 
   </div>

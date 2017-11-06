@@ -1,8 +1,10 @@
 # coding=utf-8
+import logging
+
 from app import consts
 from .base import BaseHandler
 
-import logging
+from app.utils import StdDict
 
 
 class ItemHandler(BaseHandler):
@@ -49,8 +51,7 @@ class ItemHandler(BaseHandler):
                     if len(pages) > 0:
                         page = self.page.get_page(page_id) if page_id else pages[0]
                     else:
-                        page = {'page_id': -1, 'page_title': '空',
-                                'page_content': ''}
+                        page = StdDict({'auto_id': -1, 'page_title': '空', 'page_content': ''})
                     return self.render('Item/show_regular.html', item=item, cats=cats, pages=pages, show_page=page)
                 elif int(item[2]) == consts.ITEM_TYPE_SINGLE:
                     # 单页项目

@@ -1,6 +1,6 @@
 # coding=utf-8
 from .table import pgsql, page, now
-from sqlalchemy.sql import select
+from sqlalchemy.sql import select, and_
 
 
 class PageModel(object):
@@ -35,7 +35,7 @@ class PageModel(object):
         return r.fetchone()
 
     def get_pages(self, item_id, cat_id=0):
-        s = select([page]).where(page.c.item_id == item_id, cat_id == cat_id)
+        s = select([page]).where(and_(page.c.item_id == item_id, page.c.cat_id == cat_id))
         r = pgsql.execute(s)
         return r.fetchall()
 

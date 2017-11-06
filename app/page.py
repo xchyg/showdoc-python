@@ -28,7 +28,8 @@ class PageHandler(BaseHandler):
         if not self.current_user:
             return self.ret_json({})
         cat_id = self.get_argument('cat_id')
-        order_id = self.get_argument('order_id')
+        order_id = self.get_argument('order_id', 0)
+        order_id = order_id if order_id else 99
         page_content = self.get_argument('page_content')
         page_title = self.get_argument('page_title')
         page_comments = self.get_argument('page_comments')
